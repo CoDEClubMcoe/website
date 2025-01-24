@@ -13,7 +13,6 @@ const About = () => {
           is to create a supportive community where creativity, innovation, and
           learning thrive.
         </p>
-
         <h3 className="fade-in">Our Vision</h3>
         <p className="slide-in">
           To cultivate future-ready tech leaders by fostering a culture of
@@ -34,7 +33,6 @@ const About = () => {
           <li>Expand your professional network with peers and industry leaders.</li>
           <li>Be a part of an innovative and supportive community.</li>
         </ul>
-
       </div>
     </section>
   );

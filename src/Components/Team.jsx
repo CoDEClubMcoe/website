@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react';
 
 function Card() {
+  const [visible, setVisible] = useState(false); // Track visibility for animations
+  const cardsRef = useRef([]); // To keep track of all cards
 
   const data = [
     { image: "/images/ranjeet.jpeg", name: "PRESIDENT", description: "Ranjeet Wadkar" },
@@ -23,36 +25,33 @@ function Card() {
     { image: "/images/arwa.jpg", name: "ACTIVITY CO-ORDINATOR", description: "Arwa Salujiwala" }
   ];
 
-  const diamondPositions = [
-    { top: "6.5%", left: "47%" },
-    { top: "17%", left: "47%" },
-    { top: "28%", left: "47%" },
-    { top: "39%", left: "47%" },
-    { top: "50%", left: "47%" },
-    { top: "61%", left: "47%" },
-    { top: "72%", left: "47%" },
-    { top: "82.7%", left: "47%" },
-    { top: "93.5%", left: "47%" },
-  ];
+  // Intersection Observer Logic
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setVisible(true); // Trigger animation when section comes into view
+            observer.disconnect(); // Stop observing once visible
+          }
+        });
+      },
+      { threshold: 0.3 } // Trigger when 30% of the section is in view
+    );
+
+    if (cardsRef.current) {
+      observer.observe(cardsRef.current); // Observe the entire section
+    }
+
+    return () => observer.disconnect(); // Cleanup observer
+  }, []);
 
   return (
-    <section id="team" className="relative min-h-screen bg">
+    <section id="team" className="relative min-h-screen bg" ref={cardsRef}>
       {/* Background Section */}
-      <div className="absolute inset-0 bg-[url('/images/doodle.jpg')]">
-        {/* Overlay on background only */}
-        <div className="absolute inset-0 bg-black opacity-80"></div>
+      <div className="absolute inset-0 bg-[url('/images/mainbg.png')]">
+        <div className="absolute inset-0 bg-black opacity-50"></div> {/* Reduced opacity */}
       </div>
-
-      {diamondPositions.map((pos, index) => (
-        <div
-          key={index}
-          className="hidden lg:block absolute w-16 h-16 border-2 border-gray-300 transform rotate-45 dd"
-          style={{
-            top: pos.top,
-            left: pos.left,
-          }}
-        ></div>
-      ))}
 
       {/* Page Heading */}
       <header className="relative w-full py-6 shadow-white z-10 header">
@@ -60,22 +59,21 @@ function Card() {
           <i className="ri-team-fill"></i> Meet Our Team
         </h1>
       </header>
-      
+
       {/* Cards Grid */}
       <main className="relative w-full p-5 z-10">
-        <div 
-          className="grid grid-cols-2 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10 justify-items-center"
-        >
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-items-center">
           {data.map((ele, index) => (
             <div
               key={index}
-              className="w-full max-w-sm rounded-md bg-zinc-200 overflow-hidden shadow-white z-10 card-image cd"
+              className={`w-48 sm:w-56 max-w-xs rounded-lg bg-zinc-200 overflow-hidden shadow-lg transform transition-all duration-1000 
+                ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}
             >
               {/* Image Section */}
-              <div className="w-full h-[30rem] bg-zinc-200 flex items-center justify-center p-4">
-                <div className="w-full h-full relative rounded-lg shadow-xl shadow-gray-600 overflow-hidden">
+              <div className="w-full h-48 sm:h-56 bg-zinc-200 flex items-center justify-center p-4">
+                <div className="w-full h-full relative rounded-lg overflow-hidden">
                   <img
-                    className="absolute inset-0 w-full h-full object-cover"
+                    className="absolute inset-0 w-full h-full object-cover object-center"
                     src={ele.image}
                     alt={ele.name}
                   />
@@ -83,7 +81,7 @@ function Card() {
               </div>
 
               {/* Content Section */}
-              <div className="w-full px-3 py-4 justify-between flex-grow text-center">
+              <div className="w-full px-3 py-4 text-center">
                 <h1 className="font-bold text-xl">{ele.name}</h1>
                 <p className="text-sm text-gray-700 text-lg font-semibold">{ele.description}</p>
               </div>

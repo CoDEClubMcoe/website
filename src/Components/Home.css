@@ -161,6 +161,121 @@
 }
 
 
+/* Register Section */
+.register-section {
+  padding: 4rem 2rem;
+  text-align: center;
+  color: white; /* Ensure text is visible on dark background */
+  opacity: 0; /* Initially hidden */
+  transform: translateY(50px); /* Positioned off-screen initially */
+  transition: opacity 1s ease, transform 1s ease; /* Smooth transition */
+}
+
+.register-section.visible {
+  opacity: 1; /* When in view, make visible */
+  transform: translateY(0); /* Move to original position */
+}
+
+/* Animation for Fade-in and Slide-up */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* Registration Box Styling */
+.register-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.833); /* Increased transparency */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Reduced shadow opacity */
+  color: white; /* Text color inside the box */
+  opacity: 0.9;
+  transform: translateY(30px);
+  animation: fadeInUpBox 1.2s ease-out forwards;
+  animation-delay: 0.7s; /* Delay the box animation */
+}
+
+
+/* Fade-in and slide-up animation for the registration box */
+@keyframes fadeInUpBox {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.register-section h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #fff; /* Light text color for heading */
+}
+
+.register-section p {
+  font-size: 1.2rem;
+  color: #ddd; /* Lighter text color for paragraph */
+  margin-bottom: 2rem;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUpText 1.2s ease-out forwards;
+  animation-delay: 1s; /* Delay the text animation */
+}
+
+/* Fade-in and slide-up animation for the paragraph */
+@keyframes fadeInUpText {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.register-btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  color: white;
+  background: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUpButton 1.2s ease-out forwards;
+  animation-delay: 1.2s; /* Delay the button animation */
+}
+
+/* Fade-in and slide-up animation for the button */
+@keyframes fadeInUpButton {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.register-btn:hover {
+  background: #0056b3;
+}
+
 
 
 

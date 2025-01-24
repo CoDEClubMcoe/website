@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./Home.css";
 import logo from "/images/logo.png";
-import photo from "/images/photo1.jpg";
-import photoo from "/images/photo2.jpg";
-import photooo from "/images/photo3.jpg";
 import Slideshow from "./Slideshow";
 import Card from "./Team";
 import About from "./about";
+import RegistrationForm from "./RegistrationForm"; // Import the RegistrationForm component
 
 const Home = () => {
   const headingText = "Welcome to the CodeClub";
@@ -18,9 +16,35 @@ const Home = () => {
   const [displayedHeading, setDisplayedHeading] = useState("");
   const [displayedParagraph, setDisplayedParagraph] = useState("");
   const [isBannerVisible, setIsBannerVisible] = useState(false);
+  const [isModalVisible, setModalVisible] = useState(false); // State to control modal visibility
+  const [isRegisterSectionVisible, setIsRegisterSectionVisible] = useState(false); // Visibility of Register Section
 
   const bannerRef = useRef();
-  const [modalImage, setModalImage] = useState(null);
+  const registerRef = useRef(); // Ref for the Register Section
+
+  useEffect(() => {
+    // Fade in the banner when it comes into view
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsBannerVisible(true);
+        } else {
+          setIsBannerVisible(false);
+        }
+      },
+      { threshold: 0.3 } // Start showing when 30% of the banner is in view
+    );
+
+    if (bannerRef.current) {
+      observer.observe(bannerRef.current);
+    }
+
+    return () => {
+      if (bannerRef.current) {
+        observer.unobserve(bannerRef.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (headingIndex < headingText.length) {
@@ -49,34 +73,33 @@ const Home = () => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setIsBannerVisible(true);
+          setIsRegisterSectionVisible(true); // Show register section when in view
         }
       },
       { threshold: 0.3 }
     );
 
-    if (bannerRef.current) {
-      observer.observe(bannerRef.current);
+    if (registerRef.current) {
+      observer.observe(registerRef.current);
     }
 
     return () => {
-      if (bannerRef.current) {
-        observer.unobserve(bannerRef.current);
+      if (registerRef.current) {
+        observer.unobserve(registerRef.current);
       }
     };
   }, []);
 
-  const handlePhotoClick = (photo) => {
-    setModalImage(photo);
+  const openModal = () => {
+    setModalVisible(true);
   };
 
   const closeModal = () => {
-    setModalImage(null);
+    setModalVisible(false);
   };
 
   return (
     <div>
-
       {/* Home Section */}
       <section id="home" className="home">
         <div className="home-overlay"></div>
@@ -91,25 +114,49 @@ const Home = () => {
         id="events"
         className={`banner ${isBannerVisible ? "visible" : ""}`}
         ref={bannerRef}
-        >
+      >
         <div className="banner-left">
-            <img src={logo} alt="Club Logo" className="club-logo" />
-            <h1 className="club-mission">Our Events</h1>
+          <img src={logo} alt="Club Logo" className="club-logo" />
+          <h1 className="club-mission">Our Events</h1>
         </div>
 
         <div className="banner-right my-5">
-            <Slideshow />
-        </div>  
+          <Slideshow />
+        </div>
 
         {/* Animated Square in the Right Section */}
         <div className="shape square"></div>
       </section>
-        <div>
-            <About/>
+
+      <div>
+        <About />
+      </div>
+      <div>
+        <Card />
+      </div>
+
+      {/* Register Section - Visible only when scrolled into view */}
+      <section
+        id="register"
+        className={`register-section ${isRegisterSectionVisible ? "visible" : ""}`}
+        ref={registerRef}
+      >
+        <div className="register-container">
+          <h2>Register Now</h2>
+          <p>
+            Become a part of the CodeClub by filling out the registration form
+            below.
+          </p>
+          <button onClick={openModal} className="register-btn">
+            Register
+          </button>
         </div>
-        <div>
-            <Card/>
-        </div>
+      </section>
+
+      {/* Modal for Registration Form */}
+      {isModalVisible && (
+        <RegistrationForm onClose={closeModal} /> // Pass onClose handler to the form
+      )}
     </div>
   );
 };
