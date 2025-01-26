@@ -5,8 +5,6 @@ import Event from './Components/Slideshow';
 import Team from './Components/Team';
 import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 
-
-
 import './Components/Home.css';
 import './Components/about.css';
 import './Components/Slideshow.css';

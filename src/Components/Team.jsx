@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-
 function Card() {
   const [visible, setVisible] = useState(false); // Track visibility for animations
   const cardsRef = useRef([]); // To keep track of all cards
