@@ -144,8 +144,7 @@ const Home = () => {
         <div className="register-container">
           <h2>Register Now</h2>
           <p>
-            Become a part of the CodeClub by filling out the registration form
-            below.
+            To participate in the event please click on the registeration button below and fill the form.
           </p>
           <button onClick={openModal} className="register-btn">
             Register

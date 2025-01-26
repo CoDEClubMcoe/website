@@ -1,12 +1,13 @@
 import React, { useState } from "react";
+import Swal from "sweetalert2"; // Import SweetAlert2
 import "./RegistrationForm.css";
 
 const RegistrationForm = ({ onClose }) => {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
-    phone: "",
-    interests: "",
+    department: "",
+    year: "",
   });
 
   const handleChange = (e) => {
@@ -17,7 +18,16 @@ const RegistrationForm = ({ onClose }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form Submitted:", formData);
-    onClose(); // Close modal after submission
+
+    // Show SweetAlert after form submission
+    Swal.fire({
+      icon: "success",
+      title: "Registration Successful!",
+      text: `Thank You for registering, ${formData.fullName}!`,
+      confirmButtonText: "OK",
+    }).then(() => {
+      onClose(); // Close modal after alert
+    });
   };
 
   return (
@@ -49,22 +59,31 @@ const RegistrationForm = ({ onClose }) => {
             />
           </label>
           <label>
-            Phone
+            Department
             <input
               type="text"
-              name="phone"
-              value={formData.phone}
+              name="department"
+              value={formData.department}
               onChange={handleChange}
               required
             />
           </label>
           <label>
-            Interests
-            <textarea
-              name="interests"
-              value={formData.interests}
+            Year
+            <select
+              name="year"
+              value={formData.year}
               onChange={handleChange}
-            ></textarea>
+              required
+            >
+              <option value="" disabled>
+                Select Year
+              </option>
+              <option value="First Year">First Year</option>
+              <option value="Second Year">Second Year</option>
+              <option value="Third Year">Third Year</option>
+              <option value="Fourth Year">Fourth Year</option>
+            </select>
           </label>
           <button type="submit" className="submit-btn">
             Submit

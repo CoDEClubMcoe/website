@@ -36,7 +36,7 @@ function Card() {
           }
         });
       },
-      { threshold: 0.3 } // Trigger when 30% of the section is in view
+      { threshold: 0.1 } // Trigger when 30% of the section is in view
     );
 
     if (cardsRef.current) {

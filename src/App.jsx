@@ -1,6 +1,5 @@
 import Home from './Components/Home';
 import Navbar from './Components/Nav';
-// import Registration from './Components/Registration';
 import About from './Components/about';
 import Event from './Components/Slideshow';
 import Team from './Components/Team';
@@ -23,9 +22,7 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/Slideshow" element={<Event />} />
-            {/* <Route path="/registration" element={<Registration />} /> */}
             <Route path="/Team" element={<Team />} />
-            {/* <Route path="/achievement" element={<Achievement />} /> */}
           </Routes>
         </div>
       </Router>
