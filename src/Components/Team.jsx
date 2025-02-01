@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+
 function Card() {
   const [visible, setVisible] = useState(false); // Track visibility for animations
   const cardsRef = useRef([]); // To keep track of all cards
@@ -35,7 +36,7 @@ function Card() {
           }
         });
       },
-      { threshold: 0.1 } // Trigger when 30% of the section is in view
+      { threshold: 0.1 } // Trigger when 10% of the section is in view
     );
 
     if (cardsRef.current) {
@@ -61,7 +62,7 @@ function Card() {
 
       {/* Cards Grid */}
       <main className="relative w-full p-5 z-10">
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-items-center">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-items-center">
           {data.map((ele, index) => (
             <div
               key={index}
@@ -70,7 +71,7 @@ function Card() {
             >
               {/* Image Section */}
               <div className="w-full h-48 sm:h-56 bg-zinc-200 flex items-center justify-center p-4">
-                <div className="w-full h-full relative rounded-lg overflow-hidden">
+                <div className="w-full h-0 pt-[75%] relative rounded-lg overflow-hidden">
                   <img
                     className="absolute inset-0 w-full h-full object-cover object-center"
                     src={ele.image}
