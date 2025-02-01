@@ -13,6 +13,11 @@
   "build": "vite build",
   "serve": "vite preview",  
   "start": "vite"
+},"scripts": {
+  "dev": "vite",
+  "build": "vite build",
+  "serve": "vite preview",  
+  "start": "vite"
 },
   "dependencies": {
     "react": "^18.3.1",
